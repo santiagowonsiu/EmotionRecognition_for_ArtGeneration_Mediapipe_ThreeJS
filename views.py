@@ -144,13 +144,15 @@ def generate_objects(num_objects=1):
         y = np.random.uniform(-1.0, 1.0)
         z = np.random.uniform(-1.0, 1.0)
         color = np.random.rand(3) * 255
+        rotation = np.random.rand(3) * 0.05  # Add rotation speed
         obj = {
             "shape": shape,
             "size": size,
             "x": x,
             "y": y,
             "z": z,
-            "color": color.tolist()
+            "color": color.tolist(),
+            "rotation": rotation.tolist()  # Add rotation speed to the object
         }
         objects.append(obj)
     return jsonify(objects)

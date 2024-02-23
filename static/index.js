@@ -16,6 +16,22 @@ camera.position.z = 5;
 const renderer = new THREE.WebGLRenderer({ canvas: canvas });
 renderer.setSize(canvasWidth, canvasHeight);
 
+// Enable shadows in the renderer
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
+
+// Create a point light and add it to the scene
+const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+pointLight.position.set(0, 0, 1);
+
+// Enable shadows for the light
+pointLight.castShadow = true;
+
+scene.add(pointLight);
+
+// Create an array to store the meshes
+const meshes = [];
+
 // Function to fetch a new object and add it to the scene
 function generateObject() {
     fetch('/views/objects3d')
@@ -35,8 +51,14 @@ function generateObject() {
                 // Set the position of the mesh
                 mesh.position.set(obj.x, obj.y, obj.z);
 
+                // Add the rotation speed to the mesh
+                mesh.rotationSpeed = new THREE.Vector3(obj.rotation[0], obj.rotation[1], obj.rotation[2]);
+
                 // Add the mesh to the scene
                 scene.add(mesh);
+
+                // Add the mesh to the array
+                meshes.push(mesh);
             });
         })
         .catch(error => console.error('Error:', error));
@@ -48,6 +70,13 @@ document.getElementById('generate').addEventListener('click', generateObject);
 // Animation loop
 function animate() {
     requestAnimationFrame(animate);
+
+    // Rotate each mesh
+    meshes.forEach(mesh => {
+        mesh.rotation.x += mesh.rotationSpeed.x;
+        mesh.rotation.y += mesh.rotationSpeed.y;
+        mesh.rotation.z += mesh.rotationSpeed.z;
+    });
 
     // Render the scene with the camera
     renderer.render(scene, camera);

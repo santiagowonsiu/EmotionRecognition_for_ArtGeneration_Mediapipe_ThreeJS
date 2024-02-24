@@ -6,18 +6,14 @@ import mediapipe as mp
 import pickle
 import pandas as pd
 
-#### SETUP
+#### SETUP THE BLUEPRINT AND HOME REDIRECTION
 views = Blueprint(__name__, "views")
 
 @views.route('/') # return html
 def home():
     return render_template('index.html', name = "Santiago", age= 20)
 
-@views.route("go-to-home") # redirect to another route
-def go_to_home():
-    return redirect(url_for('views.home')) # redirect to home route
-
-#### POSE CLASSIFICATION
+#### POSE CLASSIFICATION MODEL USING MEDIAPIPE AND FROM THE TRAINED DATA ON FILE body_language.pkl
 mp_drawing = mp.solutions.drawing_utils
 mp_holistic = mp.solutions.holistic
 
@@ -132,7 +128,7 @@ def gen_frames():
     camera.release()
 
 
-#### 3D OBJECTS
+#### 3D OBJECTS GENERATION
 
 @views.route('/objects3d', methods=["GET"])
 def generate_objects(num_objects=1):

@@ -5,9 +5,16 @@ import cv2
 import mediapipe as mp
 import pickle
 import pandas as pd
+from socketio_instance import socketio
+from flask_socketio import SocketIO, emit
+
 
 #### SETUP THE BLUEPRINT AND HOME REDIRECTION
 views = Blueprint(__name__, "views")
+
+@socketio.on('connect')
+def test_connect():
+    emit('after connect',  {'data':'Lets dance'})
 
 @views.route('/') # return html
 def home():
@@ -26,8 +33,9 @@ def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame') # return the response object
 
 
-def gen_frames():
+def gen_frames(): 
     camera = cv2.VideoCapture(0)  # Use 0 for web camera
+    previous_class = None
 
     with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
         while True:
@@ -87,6 +95,10 @@ def gen_frames():
                     X = pd.DataFrame([row])
                     body_language_class = model.predict(X)[0]
                     body_language_prob = model.predict_proba(X)[0]
+
+                    #new code for socket
+                    print(f"Emitting pose classification: {body_language_class}")  # Add this line
+                    socketio.emit('pose_classification', {'classification': body_language_class})
                     
                     # Grab ear coords
                     coords = tuple(np.multiply(

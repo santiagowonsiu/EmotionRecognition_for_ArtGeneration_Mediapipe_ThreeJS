@@ -28,7 +28,7 @@
 <body>
     <div class="container">
         <div class="half">
-            <h1>Sanctuary Space</h1>
+            <h1>Sanctuary Space</h1>x`
             <p>get ready to pose, {{ name }}</p>
             <img class="camera" src="{{ url_for('views.video_feed') }}" />
         </div>
@@ -39,5 +39,29 @@
             <canvas class="webgl"></canvas>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <script>
+        console.log('Page loaded');
+        var socket = io.connect('http://127.0.0.1:5000');
+        socket.on('connect', function() {
+            console.log('Connected to server');
+        });
+        socket.on('connect_error', function(err) {
+            console.log('Error connecting to server: ' + err);
+        });
+
+        let previousClassification = null;
+
+        socket.on('pose_classification', function(msg) {
+            // Update your webpage with the pose classification
+            console.log('Pose classification: ' + msg.classification);
+
+            // If the pose classification is different from the previous one, generate a new object
+            if (msg.classification !== previousClassification) {
+                window.generateObject();
+                previousClassification = msg.classification;
+            }
+        });
+    </script>
 </body>
 </html>

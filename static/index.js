@@ -85,4 +85,5 @@ function animate() {
 // Start the animation loop
 animate();
 
-
+// Make the generateObject function accessible from the global scope
+window.generateObject = generateObject;

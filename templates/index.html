@@ -28,14 +28,16 @@
 <body>
     <div class="container">
         <div class="half">
-            <h1>Sanctuary Space</h1>
-            <p>get ready to pose, {{ name }}</p>
+            <h1>e m o t i o n --- t o --- a r t</h1>
+            <p>change from "smile" to "sad" to generate objects, {{ name }}</p>
             <img class="camera" src="{{ url_for('views.video_feed') }}" />
         </div>
         <div class="half">
             <p>Waiting for 3D work...</p>
             <p><button id="generate">Generate Object</button>
                 <button id="clear">Clear Canvas</button>
+                <button id="capture">Capture Image</button>
+                <button id="runLoops">Run Loops</button>
             </p>
             <script type="module" src="{{ url_for('static', filename='index.js')}}"></script>
             <canvas class="webgl"></canvas>

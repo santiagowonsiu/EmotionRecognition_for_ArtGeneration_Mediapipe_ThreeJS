@@ -143,7 +143,7 @@ def gen_frames():
 #### 3D OBJECTS GENERATION
 
 @views.route('/objects3d', methods=["GET"])
-def generate_objects(num_objects=150):
+def generate_objects(num_objects=10):
     objects = []
     colors = [  # RGB values for the colors
         [0, 255, 0],  # Green

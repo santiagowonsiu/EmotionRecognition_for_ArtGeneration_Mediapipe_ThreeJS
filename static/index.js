@@ -112,3 +112,72 @@ function clearCanvas() {
 
 document.getElementById('clear').addEventListener('click', clearCanvas);
 window.clearCanvas = clearCanvas;
+
+
+
+
+
+///////// CAPUTE IMAGE
+
+function captureImage() {
+    // Render the scene first to ensure it's up to date
+    renderer.render(scene, camera);
+
+    // Get the image data URL from the canvas
+    var imgData = renderer.domElement.toDataURL("image/png");
+
+    // Generate a random 10-digit number
+    var randomNumber = Math.floor(Math.random() * 1e10);
+
+    // Create a link element
+    var link = document.createElement('a');
+
+    // Set the link's href to image data URL
+    link.href = imgData;
+
+    // Set the download attribute of the link to the random number
+    link.download = randomNumber + '.png';
+
+    // Trigger a click event on the link to start the download
+    link.click();
+}
+
+// Add an event listener to the "Capture Image" button
+document.getElementById('capture').addEventListener('click', captureImage);
+
+// Make the captureImage function accessible from the global scope
+window.captureImage = captureImage;
+
+
+
+
+// /////// RUN LOOPS TO SAVE IMAGES
+
+// async function runLoops() {
+//     // Prompt the user for the number of loops
+//     const numLoops = 150
+    
+//     // Run the loop
+//     for (let i = 0; i < numLoops; i++) {
+//         // Generate a random number between 1 and 4
+//         const numObjects = Math.floor(Math.random() * 5) + 1;
+
+//         // Call generateObject a random number of times
+//         for (let j = 0; j < numObjects; j++) {
+//             generateObject();
+//         }
+
+//         // Wait for 2 seconds before capturing the image
+//         await new Promise(resolve => setTimeout(resolve, 2000));
+
+//         // Call captureImage and clearCanvas
+//         captureImage();
+//         clearCanvas();
+//     }
+// }
+
+// // Add an event listener to the "Run Loops" button
+// document.getElementById('runLoops').addEventListener('click', runLoops);
+
+// // Make the runLoops function accessible from the global scope
+// window.runLoops = runLoops;

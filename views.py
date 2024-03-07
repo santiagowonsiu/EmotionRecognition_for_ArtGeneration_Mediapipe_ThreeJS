@@ -97,7 +97,7 @@ def gen_frames():
                     body_language_prob = model.predict_proba(X)[0]
 
                     #new code for socket
-                    print(f"Emitting pose classification: {body_language_class}")  # Add this line
+                    # print(f"Emitting pose classification: {body_language_class}")  # Add this line
                     socketio.emit('pose_classification', {'classification': body_language_class})
                     
                     # Grab ear coords
@@ -143,15 +143,21 @@ def gen_frames():
 #### 3D OBJECTS GENERATION
 
 @views.route('/objects3d', methods=["GET"])
-def generate_objects(num_objects=1):
+def generate_objects(num_objects=150):
     objects = []
+    colors = [  # RGB values for the colors
+        [0, 255, 0],  # Green
+        [0, 0, 255],  # Blue
+        [165, 42, 42],  # Brown
+        [255, 165, 0]  # Orange
+    ]
     for _ in range(num_objects):
         shape = np.random.choice(["sphere", "cube"])
         size = np.random.uniform(0.1, 1.0)
         x = np.random.uniform(-1.0, 1.0)
         y = np.random.uniform(-1.0, 1.0)
         z = np.random.uniform(-1.0, 1.0)
-        color = np.random.rand(3) * 255
+        color = colors[np.random.randint(len(colors))]  # Select a random color
         rotation = np.random.rand(3) * 0.05  # Add rotation speed
         obj = {
             "shape": shape,
@@ -159,7 +165,7 @@ def generate_objects(num_objects=1):
             "x": x,
             "y": y,
             "z": z,
-            "color": color.tolist(),
+            "color": color,
             "rotation": rotation.tolist()  # Add rotation speed to the object
         }
         objects.append(obj)

@@ -28,19 +28,22 @@
 <body>
     <div class="container">
         <div class="half">
-            <h1>Sanctuary Space</h1>x`
+            <h1>Sanctuary Space</h1>
             <p>get ready to pose, {{ name }}</p>
             <img class="camera" src="{{ url_for('views.video_feed') }}" />
         </div>
         <div class="half">
             <p>Waiting for 3D work...</p>
-            <p><button id="generate">Generate Object</button></p>
+            <p><button id="generate">Generate Object</button>
+                <button id="clear">Clear Canvas</button>
+            </p>
             <script type="module" src="{{ url_for('static', filename='index.js')}}"></script>
             <canvas class="webgl"></canvas>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <script>
+        // This is the client-side script to connect to the server and receive the pose classification
         console.log('Page loaded');
         var socket = io.connect('http://127.0.0.1:5000');
         socket.on('connect', function() {
@@ -64,4 +67,4 @@
         });
     </script>
 </body>
-</html>
+</html

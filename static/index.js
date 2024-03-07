@@ -1,9 +1,11 @@
 import * as THREE from 'https://threejs.org/build/three.module.js';
+// import { FBXLoader } from 'https://threejs.org/examples/jsm/loaders/FBXLoader.js';
 
 // Get the canvas element and its dimensions
 const canvas = document.querySelector('.webgl');
 const canvasWidth = canvas.clientWidth;
 const canvasHeight = canvas.clientHeight;
+console.log(`Canvas Width: ${canvasWidth}, Canvas Height: ${canvasHeight}`);
 
 // Create a scene
 const scene = new THREE.Scene();
@@ -49,7 +51,11 @@ function generateObject() {
                 const mesh = new THREE.Mesh(geometry, material);
 
                 // Set the position of the mesh
-                mesh.position.set(obj.x, obj.y, obj.z);
+                mesh.position.set(
+                    obj.x + (Math.random() - 0.5) * 10, // Random x position
+                    obj.y + (Math.random() - 0.5) * 10, // Random y position
+                    obj.z + (Math.random() - 0.5) * 10  // Random z position
+                );
 
                 // Add the rotation speed to the mesh
                 mesh.rotationSpeed = new THREE.Vector3(obj.rotation[0], obj.rotation[1], obj.rotation[2]);
@@ -87,3 +93,22 @@ animate();
 
 // Make the generateObject function accessible from the global scope
 window.generateObject = generateObject;
+
+
+///////// CLEAR CANVAS
+
+function clearCanvas() {
+    // Remove all meshes from the scene
+    for (let i = scene.children.length - 1; i >= 0; i--) {
+        const object = scene.children[i];
+        if (object instanceof THREE.Mesh) {
+            scene.remove(object);
+        }
+    }
+
+    // Clear the meshes array
+    meshes.length = 0;
+}
+
+document.getElementById('clear').addEventListener('click', clearCanvas);
+window.clearCanvas = clearCanvas;

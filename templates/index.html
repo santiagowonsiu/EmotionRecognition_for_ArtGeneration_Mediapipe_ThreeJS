@@ -31,6 +31,7 @@
             <h1>e m o t i o n --- t o --- a r t</h1>
             <p>change from "smile" to "sad" to generate objects, {{ name }}</p>
             <img class="camera" src="{{ url_for('views.video_feed') }}" />
+            <img src="/views/latest_image" alt="Latest Image">
         </div>
         <div class="half">
             <p>Waiting for 3D work...</p>
@@ -38,11 +39,31 @@
                 <button id="clear">Clear Canvas</button>
                 <button id="capture">Capture Image</button>
                 <button id="runLoops">Run Loops</button>
+                <button id="runTestButton">Run Test</button>
             </p>
             <script type="module" src="{{ url_for('static', filename='index.js')}}"></script>
             <canvas class="webgl"></canvas>
         </div>
     </div>
+    <div id="model_result">
+        <script>
+            document.getElementById('runTestButton').addEventListener('click', function() {
+                fetch('/views/run_test', { method: 'POST' })
+                .then(response => response.blob())
+                .then(image => {
+                    // Create a local URL of the image
+                    const image_url = URL.createObjectURL(image);
+            
+                    // Display the image
+                    const img = document.createElement('img');
+                    img.src = image_url;
+                    document.body.appendChild(img);
+                })
+                .catch(error => console.error('Error:', error));
+            });
+            </script>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <script>
         // This is the client-side script to connect to the server and receive the pose classification

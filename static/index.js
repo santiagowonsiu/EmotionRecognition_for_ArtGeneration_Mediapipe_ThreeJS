@@ -155,12 +155,12 @@ window.captureImage = captureImage;
 
 // async function runLoops() {
 //     // Prompt the user for the number of loops
-//     const numLoops = 150
+//     const numLoops = 4150
     
 //     // Run the loop
 //     for (let i = 0; i < numLoops; i++) {
 //         // Generate a random number between 1 and 4
-//         const numObjects = Math.floor(Math.random() * 5) + 1;
+//         const numObjects = Math.floor(Math.random() * 40) + 1;
 
 //         // Call generateObject a random number of times
 //         for (let j = 0; j < numObjects; j++) {
@@ -168,11 +168,12 @@ window.captureImage = captureImage;
 //         }
 
 //         // Wait for 2 seconds before capturing the image
-//         await new Promise(resolve => setTimeout(resolve, 2000));
+//         await new Promise(resolve => setTimeout(resolve, 500));
 
 //         // Call captureImage and clearCanvas
 //         captureImage();
 //         clearCanvas();
+//         console.log(`Loop ${i + 1} of ${numLoops} complete`);
 //     }
 // }
 
@@ -181,3 +182,19 @@ window.captureImage = captureImage;
 
 // // Make the runLoops function accessible from the global scope
 // window.runLoops = runLoops;
+
+
+/////
+fetch('/run_test', {
+    method: 'POST',
+  })
+  .then(response => response.text())
+  .then(data => {
+    // Print the result
+    console.log(data);
+    // And display it in your frontend, e.g., in a div with id 'result'
+    document.getElementById('model_result').textContent = data;
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });

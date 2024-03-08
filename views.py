@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify, redirect, url_for, Response
+from flask import Blueprint, render_template, request, jsonify, redirect, url_for, Response, send_file
 import random
 import numpy as np
 import cv2
@@ -7,7 +7,17 @@ import pickle
 import pandas as pd
 from socketio_instance import socketio
 from flask_socketio import SocketIO, emit
+from PIL import Image
+import numpy as np
+import json
+import zipfile
+import warnings
+import os
 
+warnings.filterwarnings('ignore')
+
+import cut_master.experiments.__main__
+# This will import the __main__.py file from the cut_master package / folder to be able to access the function from the CUT model for image generation
 
 #### SETUP THE BLUEPRINT AND HOME REDIRECTION
 views = Blueprint(__name__, "views")
@@ -170,3 +180,33 @@ def generate_objects(num_objects=10):
         }
         objects.append(obj)
     return jsonify(objects)
+
+
+
+#### EXECUTE TEST.PY AND WAIT TO RENDER THE GENERATED IMAGES
+
+import glob
+import subprocess
+
+@views.route('/run_test', methods=['POST'])
+def run_test_route():
+    # Run the script
+    result = subprocess.run(['/Users/santiagowon/anaconda3/bin/python', '/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/cut_master/test.py'], capture_output=True, text=True)
+
+    # Check if the script executed successfully
+    if result.returncode == 0:
+        # Get the latest generated PNG file
+        list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/gen_image_png')  # replace with the correct path
+        latest_file = max(list_of_files, key=os.path.getctime)
+        return send_file(latest_file, mimetype='image/png')
+    else:
+        return "Script execution failed", 500
+
+## /Users/santiagowon/anaconda3/bin/python /Users/santiagowon/Dropbox/Santiago/01.\ Maestria/AI\ \&\ ML/Final\ Project/Learning\ Pieces\ -\ For\ Project/7.\ Web\ \+\ GAN/cut_master/test.py 
+
+@views.route('/latest_image')
+def latest_image_route():
+    # Get the latest generated PNG file
+    list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/gen_image_png/*.png')  # replace with the correct path
+    latest_file = max(list_of_files, key=os.path.getctime)
+    return send_file(latest_file, mimetype='image/png')

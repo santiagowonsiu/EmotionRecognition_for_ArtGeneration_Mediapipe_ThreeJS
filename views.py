@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify, redirect, url_for, Response, send_file
+from flask import Blueprint, render_template, request, jsonify, redirect, url_for, Response, send_file, current_app
 import random
 import numpy as np
 import cv2
@@ -13,6 +13,9 @@ import json
 import zipfile
 import warnings
 import os
+import random
+import glob
+import subprocess
 
 warnings.filterwarnings('ignore')
 
@@ -182,21 +185,58 @@ def generate_objects(num_objects=10):
     return jsonify(objects)
 
 
-
 #### EXECUTE TEST.PY AND WAIT TO RENDER THE GENERATED IMAGES
-
-import glob
-import subprocess
 
 @views.route('/run_test', methods=['POST'])
 def run_test_route():
+
+    ######## Get the TestA file
+
+    # Look for the latest downloaded image in my files
+    dir_path = '/Users/santiagowon/Downloads/'
+    files = glob.glob(os.path.join(dir_path, '*.png'))
+    latest_file = max(files, key=os.path.getctime)
+
+    # Specify the target directory and file name 
+    target_dir = '/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/cut_master/datasets/afhq/cat2dog/TestA'
+    target_file = 'testA.png'
+
+    # Construct the full path of the target file
+    target_path = os.path.join(target_dir, target_file)
+
+    # Copy the latest file to the target directory with the specified name
+    with open(latest_file, 'rb') as fsrc:
+        with open(target_path, 'wb') as fdst:
+            fdst.write(fsrc.read())   
+
+    ######## Get the TestB file: Copy Paste in TestB a random Landscape Image as input
+
+    source_dir = '/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/cut_master/datasets/grumpifycat/Dataset - Landscapes/All_Images'
+    target_dir = '/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/cut_master/datasets/afhq/cat2dog/TestB'
+    target_file = 'testB.png'
+
+    # Get a list of all files in the source directory
+    files = os.listdir(source_dir)
+
+    # Select a random file
+    random_file = random.choice(files)
+
+    # Construct the full file paths
+    source_file = os.path.join(source_dir, random_file)
+    target_file = os.path.join(target_dir, target_file)
+
+    # Copy the file
+    with open(source_file, 'rb') as fsrc:
+        with open(target_file, 'wb') as fdst:
+            fdst.write(fsrc.read())
+
     # Run the script
     result = subprocess.run(['/Users/santiagowon/anaconda3/bin/python', '/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/cut_master/test.py'], capture_output=True, text=True)
 
     # Check if the script executed successfully
     if result.returncode == 0:
         # Get the latest generated PNG file
-        list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/gen_image_png')  # replace with the correct path
+        list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/gen_image_png')  # path for image storing
         latest_file = max(list_of_files, key=os.path.getctime)
         return send_file(latest_file, mimetype='image/png')
     else:
@@ -204,9 +244,24 @@ def run_test_route():
 
 ## /Users/santiagowon/anaconda3/bin/python /Users/santiagowon/Dropbox/Santiago/01.\ Maestria/AI\ \&\ ML/Final\ Project/Learning\ Pieces\ -\ For\ Project/7.\ Web\ \+\ GAN/cut_master/test.py 
 
-@views.route('/latest_image')
+@views.route('/latest_Fake')
 def latest_image_route():
     # Get the latest generated PNG file
-    list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/gen_image_png/*.png')  # replace with the correct path
+    list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/gen_image_png/fake_B.png')  # path for image display reading
     latest_file = max(list_of_files, key=os.path.getctime)
     return send_file(latest_file, mimetype='image/png')
+
+@views.route('/latest_Capture')
+def latest_image_route2():
+    # Get the latest generated PNG file
+    list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/capture_image/*')  # path for image display reading
+    latest_file = max(list_of_files, key=os.path.getctime)
+    return send_file(latest_file, mimetype='image/png')
+
+@views.route('/latest_Landscape')
+def latest_image_route3():
+    # Get the latest generated PNG file
+    list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/landscape_image/*')  # path for image display reading
+    latest_file = max(list_of_files, key=os.path.getctime)
+    return send_file(latest_file, mimetype='image/png')
+

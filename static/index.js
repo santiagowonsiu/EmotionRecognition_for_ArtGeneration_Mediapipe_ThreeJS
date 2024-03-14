@@ -117,7 +117,7 @@ window.clearCanvas = clearCanvas;
 
 
 
-///////// CAPUTE IMAGE
+///////// CAPTURE IMAGE
 
 function captureImage() {
     // Render the scene first to ensure it's up to date
@@ -148,6 +148,22 @@ document.getElementById('capture').addEventListener('click', captureImage);
 // Make the captureImage function accessible from the global scope
 window.captureImage = captureImage;
 
+
+/////
+
+fetch('/run_test', {
+    method: 'POST',
+  })
+  .then(response => response.text())
+  .then(data => {
+    // Print the result
+    console.log(data);
+    // And display it in your frontend, e.g., in a div with id 'result'
+    document.getElementById('model_result').textContent = data;
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 
 
 
@@ -182,19 +198,3 @@ window.captureImage = captureImage;
 
 // // Make the runLoops function accessible from the global scope
 // window.runLoops = runLoops;
-
-
-/////
-fetch('/run_test', {
-    method: 'POST',
-  })
-  .then(response => response.text())
-  .then(data => {
-    // Print the result
-    console.log(data);
-    // And display it in your frontend, e.g., in a div with id 'result'
-    document.getElementById('model_result').textContent = data;
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });

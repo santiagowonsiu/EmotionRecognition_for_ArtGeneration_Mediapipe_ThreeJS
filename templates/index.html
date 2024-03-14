@@ -26,23 +26,60 @@
     </style>
 </head>
 <body>
+    <h1>Generative AI for Emotions Detection through 3D Interpretation</h1>
+    <h2>Purpose</h2>
+    <p>This an exploratory website that explores the intersection of computer vision for pose recognition, 3D Objects generation through Three.js and GAN Models.</p>
+    <p>As the potential, this tool could help art in a more inclusive way, or could also go through the potential on how can we visualize our emotions in a more abstract way.</p>
+
+    <h2>Instructions</h2>
+    <ol>
+        <li>Generate as much 3D objects as you want, they will appear as it detects changes in your face from “sad” to “happy” and viceverse, or you can click in the “Generate Object” button</li>
+        <li>Click to capture the Image of your 3D Canvas (it will be saved in your downloads folder)</li>
+        <li>Click the “Run Generative AI – GAN Model” to run the model and wait for around 45 seconds.</li>
+        <li>Refresh the page to see your results.</li>
+    </ol>
+
+    <!-- Rest of your HTML code -->
+</body>
+<body>
     <div class="container">
         <div class="half">
-            <h1>e m o t i o n --- t o --- a r t</h1>
-            <p>change from "smile" to "sad" to generate objects, {{ name }}</p>
+            <p>Change from "smile" to "sad" to generate objects, {{ name }}</p>
             <img class="camera" src="{{ url_for('views.video_feed') }}" />
-            <img src="/views/latest_image" alt="Latest Image">
         </div>
         <div class="half">
-            <p>Waiting for 3D work...</p>
             <p><button id="generate">Generate Object</button>
                 <button id="clear">Clear Canvas</button>
                 <button id="capture">Capture Image</button>
-                <button id="runLoops">Run Loops</button>
-                <button id="runTestButton">Run Test</button>
+                <button id="runTestButton">Run Generative AI - GAN Model</button>
             </p>
             <script type="module" src="{{ url_for('static', filename='index.js')}}"></script>
             <canvas class="webgl"></canvas>
+            <p>
+                <!-- <img src="/views/latest_Fake" alt="Latest Image"> -->
+                <table>
+                    <tr>
+                        <td>
+                            <figure>
+                                <img src="/views/latest_Capture" alt="Latest Image 1">
+                                <figcaption>Input Capture</figcaption>
+                            </figure>
+                        </td>
+                        <td>
+                            <figure>
+                                <img src="/views/latest_Landscape" alt="Latest Image 2">
+                                <figcaption>Random Landscape from Dataset</figcaption>
+                            </figure>
+                        </td>
+                        <td>
+                            <figure>
+                                <img src="/views/latest_Fake" alt="Latest Image 3">
+                                <figcaption>GAN Generated</figcaption>
+                            </figure>
+                        </td>
+                    </tr>
+                </table>
+            </p>
         </div>
     </div>
     <div id="model_result">
@@ -90,4 +127,4 @@
         });
     </script>
 </body>
-</html
+</html>

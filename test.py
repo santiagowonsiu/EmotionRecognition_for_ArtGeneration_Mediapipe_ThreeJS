@@ -36,6 +36,7 @@ import json
 from argparse import Namespace
 import numpy as np
 from torchvision.transforms import ToPILImage
+import random
 
 # Create the directory if it doesn't exist
 os.makedirs('gen_image_png', exist_ok=True)
@@ -109,6 +110,8 @@ if __name__ == '__main__':
     print('creating web directory', web_dir)
     webpage = html.HTML(web_dir, 'Experiment = %s, Phase = %s, Epoch = %s' % (opt.name, opt.phase, opt.epoch))
 
+    
+
     for i, data in enumerate(dataset):
         if i == 0:
             model.data_dependent_initialize(data)
@@ -128,16 +131,18 @@ if __name__ == '__main__':
 
         # Convert tensors to PIL images and save them
         to_pil = ToPILImage()
-        for k, v in visuals.items():
+        for i, (k, v) in enumerate(visuals.items()):
             image = to_pil(v.squeeze(0).cpu())  # remove the batch dimension
-            image.save(os.path.join('gen_image_png', f'{k}.png'))
-
-
-        # img_path = model.get_image_paths()     # get image paths
-    #     if i % 5 == 0:  # save images to an HTML file
-    #         print('processing (%04d)-th image... %s' % (i, img_path))
-    #     save_images(webpage, visuals, img_path, width=opt.display_winsize)
-    # webpage.save()  # save the HTML
+            image.save(os.path.join('gen_image_png', f'{k}.png')) # this is where the model will only store once
+            random_number = random.randint(1000000000, 9999999999)
+            
+            #Where and what should we store while the model generates
+            if i == 1:  # STORE: Fake Image
+                image.save(os.path.join('gen_image_display', f'{random_number}_{k}.png'))
+            if i == 0:  # STORE: Input Image 3D Shapes
+                image.save(os.path.join('capture_image', f'{random_number}_{k}.png'))
+            if i == 2:  # STORE: Dataset Randomly Picked Landscape image
+                image.save(os.path.join('landscape_image', f'{random_number}_{k}.png'))             
 
 
 

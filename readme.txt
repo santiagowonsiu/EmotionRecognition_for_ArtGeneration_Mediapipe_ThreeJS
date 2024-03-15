@@ -38,8 +38,9 @@ c) if trying to reload it was working and now it is not, go to the terminal and 
 d) restarting the computer once should also work to try again
 
 
+4. (DEMO VIDEO) https://www.dropbox.com/scl/fi/igivhpog47i3axdqne3y8/Screen-Recording-2024-03-14-at-17.25.36.mov?rlkey=nnuvuf3ouq68vnzacf2nhf7t2&dl=0
 
-4. (OPTIONAL TO READ) Other important tips regarding the GAN important routes:
+5. (OPTIONAL TO READ) Other important tips regarding the GAN important routes:
 
 - Where is the trained model stored: ./checkpoints/cat2dog_cut_pretrained/latest_net_G.pth”
 
@@ -48,7 +49,7 @@ d) restarting the computer once should also work to try again
 - Where should be the 1 input image of the Landscape to run the GAN be: “./cut_master/datasets/afhq/cat2dog/TestA”
 
 
-5. (OPTIONAL TO READ) Files Glossary (as guidance)
+6. (OPTIONAL TO READ) Files Glossary (as guidance)
 
 - Views.py and app.py contain the main backend code
 

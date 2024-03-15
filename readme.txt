@@ -62,3 +62,18 @@ d) restarting the computer once should also work to try again
 - Checkpoints is the folder to store the GAN model I trained: /cat2dog_cut_pretrained/latest_net_G.pth
 
 - The folders that are required for the GAN to store and find the root to display images in the website are: gen_image_png, gen_image_display, landscape_image, capture_image
+
+7. REFERENCES
+
+Renotte, N., 2021. Body Language Decoder. [Online]
+Available at: https://github.com/nicknochnack/Body-Language-Decoder
+Taesung Park, A. A. E. R. Z. J.-Y. Z., 2020. Contrastive Learning for Unpaired Image-to-Image Translation. [Online]
+Available at: https://arxiv.org/pdf/2007.15651.pdf
+Park, T., 2021. [Online]
+Available at: https://github.com/taesungp/contrastive-unpaired-translation
+Phillip Isola, J.-Y. Z. T. Z. A. A. E., 2017. Image-to-Image Translation with Conditional Adversarial Nets. [Online]
+Available at: https://phillipi.github.io/pix2pix/
+Jun-Yan Zhu*, T. P. P. I. A. A. E., 2017. Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks. [Online]
+Available at: https://junyanz.github.io/CycleGAN/
+Rougetet, A., n.d. Landscape Pictures Dataset. [Online]
+Available at: https://www.kaggle.com/datasets/arnaud58/landscape-pictures

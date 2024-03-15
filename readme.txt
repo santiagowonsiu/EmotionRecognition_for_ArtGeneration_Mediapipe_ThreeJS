@@ -41,15 +41,15 @@ This project is a first step towards using AI and 3D tech to make personal growt
 3. (SHOULD READ) I am still having trouble to initialise the client, sometimes:
 
 
-a) it usually take a 1-2 of times of debugging before the project actually works
+a) it usually takeS 1-2 of times of debugging before the project actually works
 
 b) before opening http://127.0.0.1:5000/views/, Wait for the terminal to print:
  * Debugger is active!
  * Debugger PIN: 986-931-929 
 
-c) if trying to reload it was working and now it is not, go to the terminal and kill all process in port 500
-	First type loss -I:5000
-	Second type kill NumberOfThePRocess (do so por as many current processes)
+c) if trying to reload and the project is not working anymore, go to the terminal and kill all process in port 5000
+	First type: loss -I:5000
+	Second type: kill NumberOfThePRocess (do so por as many current processes)
 	Third make sure you killed them while http://127.0.0.1:5000/views/ was not open
 
 d) restarting the computer once should also work to try again

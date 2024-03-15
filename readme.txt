@@ -22,7 +22,7 @@ This project is a first step towards using AI and 3D tech to make personal growt
   - npm install
   - pip install -r requirements.txt
 
-- Initialize web app: python.app.py
+- Initialize command in terminal: python app.py
 
 - Remember to go to http://127.0.0.1:5000/views/ as the “/views” blueprint is being used
 

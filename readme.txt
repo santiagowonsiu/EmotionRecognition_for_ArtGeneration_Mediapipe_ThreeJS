@@ -9,7 +9,8 @@
 
 - Remember to go to http://127.0.0.1:5000/views/ as the “/views” blueprint is being used
 
-- Remember to add the "cut_model": folder that wasn't possible to upload in the GitHub. Test.py was uploaded to the repo but actually should be inside "cut_model" folder
+- Remember to add the "cut_model": folder that wasn't possible to upload in the GitHub. Test.py was uploaded to the repo but actually should be inside "cut_model" folder: https://www.dropbox.com/scl/fo/8l8qsdk3x8rsyogvwyx62/h?rlkey=qqsu11pfmoy3ekqjuogoh3w87&dl=0
+
 
 
 2. (REQUIRED) Functions that require “path” updating for them to work in the Views.py file 

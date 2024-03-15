@@ -193,6 +193,7 @@ def run_test_route():
     ######## Get the TestA file
 
     # Look for the latest downloaded image in my files
+    # Link where your downloads folder is where images are automatically downloaded from a browser, it must be that folder for the model to get the image
     dir_path = '/Users/santiagowon/Downloads/'
     files = glob.glob(os.path.join(dir_path, '*.png'))
     latest_file = max(files, key=os.path.getctime)
@@ -211,7 +212,10 @@ def run_test_route():
 
     ######## Get the TestB file: Copy Paste in TestB a random Landscape Image as input
 
+    #Link where the dataset of lanscapes is
     source_dir = '/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/cut_master/datasets/grumpifycat/Dataset - Landscapes/All_Images'
+    
+    #Link where the TestB (1 landscape image) will be pasted for the model to take as reference to transform
     target_dir = '/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/cut_master/datasets/afhq/cat2dog/TestB'
     target_file = 'testB.png'
 
@@ -231,29 +235,33 @@ def run_test_route():
             fdst.write(fsrc.read())
 
     # Run the script
+    # Link where test.py file is
     result = subprocess.run(['/Users/santiagowon/anaconda3/bin/python', '/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/cut_master/test.py'], capture_output=True, text=True)
 
     # Check if the script executed successfully
     if result.returncode == 0:
         # Get the latest generated PNG file
+        # Link where the model will store 3 images: The Input TestA, the Input TestB and the Output
         list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/gen_image_png')  # path for image storing
         latest_file = max(list_of_files, key=os.path.getctime)
         return send_file(latest_file, mimetype='image/png')
     else:
         return "Script execution failed", 500
+    
 
-## /Users/santiagowon/anaconda3/bin/python /Users/santiagowon/Dropbox/Santiago/01.\ Maestria/AI\ \&\ ML/Final\ Project/Learning\ Pieces\ -\ For\ Project/7.\ Web\ \+\ GAN/cut_master/test.py 
-
-@views.route('/latest_Fake')
-def latest_image_route():
+@views.route('/latest_Fake1')
+def latest_image_route1():
     # Get the latest generated PNG file
-    list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/gen_image_png/fake_B.png')  # path for image display reading
+    # Make sure there is a folder created to store a duplicate of the Output images for display in the website
+    list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/gen_image_display/*')  # path for image display reading
     latest_file = max(list_of_files, key=os.path.getctime)
     return send_file(latest_file, mimetype='image/png')
+
 
 @views.route('/latest_Capture')
 def latest_image_route2():
     # Get the latest generated PNG file
+    # Make sure there is a folder created to store a duplicate of the TestA capture images for display in the website
     list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/capture_image/*')  # path for image display reading
     latest_file = max(list_of_files, key=os.path.getctime)
     return send_file(latest_file, mimetype='image/png')
@@ -261,6 +269,7 @@ def latest_image_route2():
 @views.route('/latest_Landscape')
 def latest_image_route3():
     # Get the latest generated PNG file
+    # Make sure there is a folder created to store a duplicate of the TestB Lanscape Dataset image for display in the website
     list_of_files = glob.glob('/Users/santiagowon/Dropbox/Santiago/01. Maestria/AI & ML/Final Project/Learning Pieces - For Project/7. Web + GAN/landscape_image/*')  # path for image display reading
     latest_file = max(list_of_files, key=os.path.getctime)
     return send_file(latest_file, mimetype='image/png')

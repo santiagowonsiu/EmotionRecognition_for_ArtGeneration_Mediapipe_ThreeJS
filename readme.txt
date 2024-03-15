@@ -1,3 +1,20 @@
+Abstract
+
+This project explores the integration of pose classification, 3D environments, and deep learning in image generation with the aim of eventually being able to convey into a more matured solution that enables personal growth tools through art and technology.
+
+The project’s trajectory includes tools like Google’s MediaPipe for pose classification, and Generative Adversarial Networks for image transformation, specifically Contrastive Unpaired Translation (CUT), CycleGAN and pix2pix models.
+
+The system's architecture combines front-end interactions with Three.js and a Flask-powered backend, covering the user journey from pose recognition to image generation. Challenges in server setup led to a deep dive into HTTP protocols. OpenCV is integrated for real-time camera functionality, seamlessly capturing user poses for recognition and image generation.
+
+In the end, a GAN (Generative Adversarial Network) was added, and it made the project better and took it further than what was first planned. Training this model with pictures of landscapes and 3D objects helped it learn to create images, but it wasn’t easy to adapt the model to run in a web-based system. Getting the GAN to work just right involved careful changes, like understanding in depth the relationships between the different functions.
+
+For the future, there's a chance to make the system better by having it recognize more kinds of poses, improving the GAN’s training images, and making it smart enough to generate 3D objects that change based on what it “sees”.
+
+This project is a first step towards using AI and 3D tech to make personal growth and emotion awareness more fun and engaging. However, it could also end up developing towards developing tools for inclusive art creation.
+
+
+
+
 1. (REQUIRED) Initialize
 
 - Installations (from the package.json and requirements.txt)

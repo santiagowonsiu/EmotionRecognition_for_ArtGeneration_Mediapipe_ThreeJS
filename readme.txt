@@ -94,3 +94,6 @@ Jun-Yan Zhu*, T. P. P. I. A. A. E., 2017. Unpaired Image-to-Image Translation us
 Available at: https://junyanz.github.io/CycleGAN/
 Rougetet, A., n.d. Landscape Pictures Dataset. [Online]
 Available at: https://www.kaggle.com/datasets/arnaud58/landscape-pictures
+
+8. I haven't been able to try the repo in another computer, im also uploading the whole folder with the environment installed here: https://www.dropbox.com/scl/fo/ckeuc4ijzwiu8idl0l8nl/h?rlkey=1d7x2t493p9odyeyz0au89961&dl=0
+

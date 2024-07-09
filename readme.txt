@@ -1,4 +1,4 @@
-Abstract
+## Abstract
 
 This project explores the integration of pose classification, 3D environments, and deep learning in image generation with the aim of eventually being able to convey into a more matured solution that enables personal growth tools through art and technology.
 
@@ -15,7 +15,7 @@ This project is a first step towards using AI and 3D tech to make personal growt
 
 
 
-1. (REQUIRED) Initialize
+## 1. (REQUIRED) Initialize
 
 - Installations (from the package.json and requirements.txt)
 
@@ -30,7 +30,7 @@ This project is a first step towards using AI and 3D tech to make personal growt
 
 
 
-2. (REQUIRED) Functions that require “path” updating for them to work in the Views.py file 
+## 2. (REQUIRED) Functions that require “path” updating for them to work in the Views.py file 
 
 - /run_test
 - /latest_Fake1
@@ -38,7 +38,7 @@ This project is a first step towards using AI and 3D tech to make personal growt
 - /latest_Landscape
 
 
-3. (SHOULD READ) I am still having trouble to initialise the client, sometimes:
+## 3. (SHOULD READ) I am still having trouble to initialise the client, sometimes:
 
 
 a) it usually takeS 1-2 of times of debugging before the project actually works
@@ -55,9 +55,9 @@ c) if trying to reload and the project is not working anymore, go to the termina
 d) restarting the computer once should also work to try again
 
 
-4. (DEMO VIDEO) https://www.dropbox.com/scl/fi/igivhpog47i3axdqne3y8/Screen-Recording-2024-03-14-at-17.25.36.mov?rlkey=nnuvuf3ouq68vnzacf2nhf7t2&dl=0
+## 4. (DEMO VIDEO) https://www.dropbox.com/scl/fi/igivhpog47i3axdqne3y8/Screen-Recording-2024-03-14-at-17.25.36.mov?rlkey=nnuvuf3ouq68vnzacf2nhf7t2&dl=0
 
-5. (OPTIONAL TO READ) Other important tips regarding the GAN important routes:
+## 5. (OPTIONAL TO READ) Other important tips regarding the GAN important routes:
 
 - Where is the trained model stored: ./checkpoints/cat2dog_cut_pretrained/latest_net_G.pth”
 
@@ -66,7 +66,7 @@ d) restarting the computer once should also work to try again
 - Where should be the 1 input image of the Landscape to run the GAN be: “./cut_master/datasets/afhq/cat2dog/TestA”
 
 
-6. (OPTIONAL TO READ) Files Glossary (as guidance)
+## 6. (OPTIONAL TO READ) Files Glossary (as guidance)
 
 - Views.py and app.py contain the main backend code
 
@@ -80,7 +80,7 @@ d) restarting the computer once should also work to try again
 
 - The folders that are required for the GAN to store and find the root to display images in the website are: gen_image_png, gen_image_display, landscape_image, capture_image
 
-7. REFERENCES
+## 7. REFERENCES
 
 Renotte, N., 2021. Body Language Decoder. [Online]
 Available at: https://github.com/nicknochnack/Body-Language-Decoder
